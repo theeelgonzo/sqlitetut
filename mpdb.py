@@ -12,10 +12,10 @@ cur = con.cursor()
 
 # query db to ensure movie table exists
 res = cur.execute('SELECT name FROM sqlite_master')
-print(res.fetchone())
+#print(res.fetchone())
 
 res = cur.execute("SELECT name FROM sqlite_master WHERE name = 'spam'")
-print(res.fetchone() is None)
+#print(res.fetchone() is None)
 # print True because there is no spam -\_0_/-
 # add records into movie table
 #cur.execute(
@@ -28,17 +28,26 @@ print(res.fetchone() is None)
        # """
        # )
 res = cur.execute('SELECT * FROM movie')
-print(res.fetchall())
+#print(res.fetchall())
 #con.commit()
 
 res = cur.execute('SELECT score FROM movie')
-print(res.fetchall())
-data = [
-        ("Monty Python Live at the Hollywood Bowl", 1982, 7.9),
-        ("Monty Python's The Meaning of Life", 1983, 7.5),
-        ("Monty Python's The Life of Brian", 1979, 8.0)
-        ]
-cur.executemany("INSERT INTO movie VALUES (?, ?, ?)", data)
-con.commit()
+
+#print(res.fetchall())
+#data = [
+#        ("Monty Python Live at the Hollywood Bowl", 1982, 7.9),
+#        ("Monty Python's The Meaning of Life", 1983, 7.5),
+#        ("Monty Python's The Life of Brian", 1979, 8.0)
+#        ]
+#cur.executemany("INSERT INTO movie VALUES (?, ?, ?)", data)
+#con.commit()
 res = cur.execute('SELECT * FROM movie')
-print(res.fetchall())
+#print(res.fetchall())
+for row in cur.execute('SELECT year, title FROM movie ORDER BY year'):
+    print(row)
+con.close()
+new_con = sqlite3.connect('tutorial.db')
+new_cur = new_con.cursor()
+res = new_cur.execute('SELECT title, year FROM movie ORDER BY score DESC')
+title, year = res.fetchone()
+print(f"The highest scoring Monty Python movie is {title!r}, released in {year}.")

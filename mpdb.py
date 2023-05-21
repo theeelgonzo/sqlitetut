@@ -14,3 +14,6 @@ cur = con.cursor()
 res = cur.execute('SELECT name FROM sqlite_master')
 print(res.fetchone())
 
+res = cur.execute("SELECT name FROM sqlite_master WHERE name = 'spam'")
+print(res.fetchone() is None)
+# print True because there is no spam -\_0_/-

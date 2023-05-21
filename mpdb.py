@@ -18,14 +18,27 @@ res = cur.execute("SELECT name FROM sqlite_master WHERE name = 'spam'")
 print(res.fetchone() is None)
 # print True because there is no spam -\_0_/-
 # add records into movie table
-cur.execute(
-        """
-        INSERT INTO
-        movie
-        VALUES
-        ('Monty Python And The Holy Grail', 1975, 8.2),
-        ('And Now For Something Completely Different', 1971, 7.5)
-        """
-        )
+#cur.execute(
+ #       """
+  #      INSERT INTO
+   #     movie
+    #    VALUES
+     #   ('Monty Python And The Holy Grail', 1975, 8.2),
+      #  ('And Now For Something Completely Different', 1971, 7.5)
+       # """
+       # )
+res = cur.execute('SELECT * FROM movie')
+print(res.fetchall())
+#con.commit()
+
+res = cur.execute('SELECT score FROM movie')
+print(res.fetchall())
+data = [
+        ("Monty Python Live at the Hollywood Bowl", 1982, 7.9),
+        ("Monty Python's The Meaning of Life", 1983, 7.5),
+        ("Monty Python's The Life of Brian", 1979, 8.0)
+        ]
+cur.executemany("INSERT INTO movie VALUES (?, ?, ?)", data)
+con.commit()
 res = cur.execute('SELECT * FROM movie')
 print(res.fetchall())

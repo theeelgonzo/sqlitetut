@@ -17,3 +17,15 @@ print(res.fetchone())
 res = cur.execute("SELECT name FROM sqlite_master WHERE name = 'spam'")
 print(res.fetchone() is None)
 # print True because there is no spam -\_0_/-
+# add records into movie table
+cur.execute(
+        """
+        INSERT INTO
+        movie
+        VALUES
+        ('Monty Python And The Holy Grail', 1975, 8.2),
+        ('And Now For Something Completely Different', 1971, 7.5)
+        """
+        )
+res = cur.execute('SELECT * FROM movie')
+print(res.fetchall())
